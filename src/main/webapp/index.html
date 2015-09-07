@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="resources/css/infini.css" rel="stylesheet" type="text/css"/>
+    <script src="resources/js/infini.js"></script>
+
+</head>
+<body>
+<div class="player">
+    <p class="message">
+        <i class="fa fa-spinner">  Loading...</i>
+    </p>
+    <div class="controls">
+        <button class="button fa fa-play"></button>
+        <div class="track">
+            <div class="progress"></div>
+            <div class="scrubber"></div>
+        </div>
+        <div class="volume">
+            <i class="fa fa-volume-up"></i> <input type="range" min="0" max="100" value="100" style="height:10px;width: 60px" onchange="player.volume(this);">
+        </div>
+
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    window.addEventListener('load', init, false);
+    function init() {
+        try {
+            // Fix up for prefixing
+            window.player = new Player('http://localhost:8080/infinisong/listen', document.querySelector('.player'));
+        }
+        catch (e) {
+            console.log(e.message);
+            alert('Web Audio API is not supported in this browser');
+        }
+    }
+
+
+
+
+    //var url = 'http://static.kevvv.in/sounds/callmemaybe.mp3',
+
+    /*var context;
+    var buf;        // Audio buffer
+    var gainNode;
+
+    window.addEventListener('load', init, false);
+    function init() {
+        try {
+            // Fix up for prefixing
+            window.AudioContext = window.AudioContext || window.webkitAudioContext;
+            context = new AudioContext();
+            loadSong();
+        }
+        catch (e) {
+            alert('Web Audio API is not supported in this browser');
+        }
+    }
+
+
+    // Play the loaded file
+    function play() {
+        if (!context.createGain)
+            context.createGain = context.createGainNode;
+        // Create a source node from the buffer
+        var source = context.createBufferSource();
+        gainNode = context.createGain();
+        source.buffer = buf;
+        // Connect to the final output node (the speakers)
+        source.connect(gainNode);
+        gainNode.connect(context.destination);
+
+        // Play immediately
+        source.start(0);
+    }
+
+    function loadSong() {
+        var xhr = new XMLHttpRequest();
+        xhr.open("GET", "http://localhost:8080/infinisong/listen", true);
+        xhr.responseType = "arraybuffer";
+
+        xhr.onload = function() {
+            context.decodeAudioData(xhr.response, function onSuccess(decodedBuffer) {
+                buf = decodedBuffer;
+                play();
+                // Decoding was successful, do something useful with the audio buffer
+            }, function onFailure() {
+                alert("Decoding the audio buffer failed");
+            });
+        };
+        xhr.send();
+
+    }
+
+   function changeVolume(element) {
+        var volume = element.value;
+        var fraction = parseInt(element.value) / parseInt(element.max);
+        // Let's use an x*x curve (x-squared) since simple linear (x) does not
+        // sound as good.
+        volume = fraction * fraction;
+        gainNode.gain.value = volume;
+    }*/
+</script>
+</body>
+</html>
