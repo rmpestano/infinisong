@@ -8,6 +8,11 @@
 
 </head>
 <body>
+<button onclick="player.play(30);alert(player.title);">test</button>
+
+<div style="width:100%;font-size:20px;text-align: center" id="radio">
+</div>
+
 <div class="player">
     <p class="message">
         <i class="fa fa-spinner">  Loading...</i>
@@ -21,6 +26,32 @@
         <div class="volume">
             <i class="fa fa-volume-up"></i> <input type="range" min="0" max="100" value="100" style="height:10px;width: 60px" onchange="player.volume(this);">
         </div>
+    </div>
+    <div id="info" style="display: flex;flex-direction: column;align-items: center">
+        <div style="align-self: center">
+            Now playing...
+        </div>
+        <hr/>
+        <div style="display: flex;flex-direction: row;">
+            <label style="width: 80px;text-align:right">Title: </label>
+            <span id="title" style="width: 230px"></span>
+        </div>
+        <div style="display: flex;flex-direction: row;">
+            <label style="width: 80px;text-align:right">Artist: </label>
+            <span id="artist" style="width: 230px"></span>
+        </div>
+        <div  style="display: flex;flex-direction: row;">
+            <label style="width: 80px;text-align:right">Album: </label>
+            <span id="album" style="width: 230px"></span>
+        </div>
+        <div  style="display: flex;flex-direction: row;">
+            <label style="width:80px;text-align: right">Year: </label>
+            <span id="year" style="width: 230px"></span>
+        </div>
+        <div style="display: flex;flex-direction: row;">
+            <label style="width:80px;text-align: right">Played: </label>
+            <span id="count" style="width: 230px"></span>
+        </div>
 
     </div>
 </div>
@@ -31,7 +62,7 @@
     function init() {
         try {
             // Fix up for prefixing
-            window.player = new Player('http://localhost:8080/infinisong/listen', document.querySelector('.player'));
+            window.player = new Player('http://localhost:8080/infinisong/listen');
         }
         catch (e) {
             console.log(e.message);

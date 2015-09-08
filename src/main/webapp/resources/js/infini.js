@@ -1,8 +1,12 @@
 
-function Player ( url, el ) {
+function Player (url, initialPosition) {
+    if(!initialPosition){
+        initialPosition = 0;
+    }
+    this.position = initialPosition;
     this.ac = new (window.AudioContext || webkitAudioContext)();
     this.url = url;
-    this.el = el;
+    var el = document.querySelector('.player');
     this.button = el.querySelector('.button');
     this.track = el.querySelector('.track');
     this.progress = el.querySelector('.progress');
@@ -27,7 +31,15 @@ Player.prototype.fetch = function() {
     xhr.responseType = 'arraybuffer';
     xhr.onload = function() {
         this.decode(xhr.response);
+        this.title = xhr.getResponseHeader('title');
+        this.artist = xhr.getResponseHeader('artist');
+        this.album = xhr.getResponseHeader('album');
+        this.year = xhr.getResponseHeader('year');
+        this.count = xhr.getResponseHeader('count');
+        this.radio = xhr.getResponseHeader('radio');
+
     }.bind(this);
+
     xhr.send();
 };
 
@@ -129,6 +141,7 @@ Player.prototype.draw = function() {
     if ( this.playing ) {
         this.button.classList.add('fa-pause');
         this.button.classList.remove('fa-play');
+
     } else {
         this.button.classList.add('fa-play');
         this.button.classList.remove('fa-pause');
@@ -137,6 +150,17 @@ Player.prototype.draw = function() {
     if ( !this.dragging ) {
         this.scrubber.style.left = ( progress * width ) + 'px';
     }
+    document.getElementById('title').innerHTML = '&nbsp;<b>' + this.title + '</b>';
+    document.getElementById('artist').innerHTML = '&nbsp;<b>'+this.artist + '</b>';
+    document.getElementById('album').innerHTML = '&nbsp;<b>'+this.album + '</b>';
+    document.getElementById('year').innerHTML = '&nbsp;<b>'+this.year + '</b>';
+    var countHtml = '&nbsp;<b>'+this.count + '</b> time';
+    if(this.count > 1){
+        countHtml = countHtml + 's';
+    }
+    document.getElementById('count').innerHTML = countHtml;
+    document.getElementById('radio').innerHTML = 'Welcome to radio <b>'+this.radio + '</b>';
+
     requestAnimationFrame(this.draw.bind(this));
 };
 
