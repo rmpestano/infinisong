@@ -22,6 +22,10 @@ Player.prototype.bindEvents = function() {
     this.scrubber.addEventListener('mousedown', this.onMouseDown.bind(this));
     window.addEventListener('mousemove', this.onDrag.bind(this));
     window.addEventListener('mouseup', this.onMouseUp.bind(this));
+    this.ac.onended = function() {
+        alert("The audio has ended");
+    };
+
 };
 
 
@@ -160,6 +164,8 @@ Player.prototype.draw = function() {
     }
     document.getElementById('count').innerHTML = countHtml;
     document.getElementById('radio').innerHTML = 'Welcome to radio <b>'+this.radio + '</b>';
+    document.getElementById('duration').innerHTML = (player.buffer.duration/60).toFixed(2).replace('.',':');
+
 
     requestAnimationFrame(this.draw.bind(this));
 };

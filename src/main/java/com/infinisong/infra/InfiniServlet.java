@@ -12,7 +12,7 @@ import java.io.*;
 /**
  * Created by pestano on 07/09/15.
  */
-@WebServlet(urlPatterns = "/listen",loadOnStartup = 1)
+@WebServlet(urlPatterns = "/listen", loadOnStartup = 1)
 public class InfiniServlet extends HttpServlet {
 
     File musicFile;
@@ -21,8 +21,8 @@ public class InfiniServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         String location = Thread.currentThread().getContextClassLoader().getResource("nebel.mp3").getPath();
-         musicFile = new File(location);
-         song = new Song(location);
+        musicFile = new File(location);
+        song = new Song(location);
     }
 
     @Override
@@ -38,23 +38,23 @@ public class InfiniServlet extends HttpServlet {
         try {
             response.addHeader("Content-Disposition", "inline; filename=" + musicFile.getName());
             response.setHeader("Accept-Ranges", "bytes");
-            response.addHeader("title",song.getTitle());
-            response.addHeader("artist",song.getArtist());
-            response.addHeader("album",song.getAlbum());
-            response.addHeader("year",song.getYear());
-            response.addHeader("count","2");//TODO get number of times played from database (query by artist and title)
-            response.addHeader("radio","Infini Radio");//TODO get number of times played from database (query by artist and title)
+            response.addHeader("title", song.getTitle());
+            response.addHeader("artist", song.getArtist());
+            response.addHeader("album", song.getAlbum());
+            response.addHeader("year", song.getYear());
+            response.addHeader("count", "2");//TODO get number of times played from database (query by artist and title)
+            response.addHeader("radio", "Infini Radio");//TODO get number of times played from database (query by artist and title)
             //String range = request.getHeader("Range");
 
             int start = 0;
             long end = 0;
             is = new BufferedInputStream(new FileInputStream(musicFile));
-                response.setContentType("audio/mpeg");
-                start = 0;
-                end = musicFile.length() - 1;
-                for (int i = start; i < end + 1; i++) {
-                    totallen++;
-                    os.write(is.read());
+            response.setContentType("audio/mpeg");
+            start = 0;
+            end = musicFile.length() - 1;
+            for (int i = start; i < end + 1; i++) {
+                totallen++;
+                os.write(is.read());
             }
         } finally {
             if (is != null) {

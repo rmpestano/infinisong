@@ -43,6 +43,11 @@
     outline: none;
 }
 
+.volume input {
+    height:10px;
+    width: 60px;
+}
+
 .track {
     position: relative;
     width: 236px;
@@ -70,4 +75,15 @@
     border: solid 3px #ddd;
     cursor: pointer;
     box-shadow: 0 0 5px #000, inset 0 0 4px #400;
+}
+
+.time{
+    margin-top:-16px;
+}
+
+.time > div {
+    color:white;
+    font-size:12px;
+    float: right;
+    width: 45px;
 }
