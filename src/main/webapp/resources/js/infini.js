@@ -164,7 +164,7 @@ Player.prototype.draw = function() {
     }
     document.getElementById('count').innerHTML = countHtml;
     document.getElementById('radio').innerHTML = 'Welcome to radio <b>'+this.radio + '</b>';
-    document.getElementById('duration').innerHTML = (player.buffer.duration/60).toFixed(2).replace('.',':');
+    document.getElementById('duration').innerHTML = secondsToMinutesAndSeconds(player.buffer.duration);
 
 
     requestAnimationFrame(this.draw.bind(this));
@@ -178,9 +178,16 @@ Player.prototype.volume = function( element ) {
     // sound as good.
     volume = fraction * fraction;
     this.gainNode.gain.value = volume;
-
 }
 
-
+function secondsToMinutesAndSeconds(time){
+    var minutes = Math.floor(time / 60);
+    var seconds = time - minutes * 60;
+    if(minutes < 1 && seconds < 10){
+       return '0:0'+seconds.toFixed();
+    } else{
+        return  minutes+':'+seconds.toFixed();
+    }
+}
 
 // create a new instance of the player and get things started

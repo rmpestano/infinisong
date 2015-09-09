@@ -20,7 +20,7 @@
         <div style="display: inline;">
             <div class="track" >
                 <div class="progress"></div>
-                <div class="scrubber" onmouseover="this.title = (player.position/60).toFixed(2).replace('.',':')" ></div>
+                <div class="scrubber" onmouseover="this.title = secondsToMinutesAndSeconds(player.position)" ></div>
 
             </div>
             <div class="time">
